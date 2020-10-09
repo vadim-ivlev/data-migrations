@@ -2,20 +2,42 @@ version: '3.1'
 
 services:
 
-  db:
-    image: postgres:10.9-alpine
-    container_name: rgdb-postgres
-    restart: always
+  # db:
+  #   image: postgres:10.9-alpine
+  #   container_name: rgdb-postgres
+  #   restart: always
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - "./pgdata:/var/lib/postgresql/data/pgdata"
+  #     # - "./migrations:/dumps"
+  #     #  - "./etc/.pgpass:/root/.pgpass"
+  #   environment:
+  #     POSTGRES_USER: root
+  #     POSTGRES_PASSWORD: ${RGPASS}
+  #     POSTGRES_DB: rgdb 
+  #     PGDATA: /var/lib/postgresql/data/pgdata
+
+
+  data-migrations-notebook:
+    build: 
+        context: .
+        dockerfile: Dockerfile-base-notebook 
+    # image: jupyter/base-notebook:python-3.8.5
+    # image: jupyter/datascience-notebook:latest
+    container_name: data-migrations-notebook
+    restart: unless-stopped
     ports:
-      - 5432:5432
-    volumes:
-      - "./pgdata:/var/lib/postgresql/data/pgdata"
-      # - "./migrations:/dumps"
-      #  - "./etc/.pgpass:/root/.pgpass"
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: ${RGPASS}
-      POSTGRES_DB: rgdb 
-      PGDATA: /var/lib/postgresql/data/pgdata
+      - 8888:8888
+    # command: /opt/conda/bin/jupyter notebook  --ip="*" --port=8888 --notebook-dir=/home/jovyan/work --no-browser --allow-root  --NotebookApp.token="abc"
+    volumes: 
+        - ..:/home/jovyan/work
+
+
+# outer network to communicate with other services 
+networks:
+  default:
+    external:
+      name: auth_proxy_network
 
 
