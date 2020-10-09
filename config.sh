@@ -1,0 +1,2 @@
+PGHOST=134.0.107.93
+CSVDIR=/Volumes/ssd/dumps-2020-10-09

@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:10.9-alpine
+    container_name: rgdb-postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - "./pgdata:/var/lib/postgresql/data/pgdata"
+      # - "./migrations:/dumps"
+      #  - "./etc/.pgpass:/root/.pgpass"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ${RGPASS}
+      POSTGRES_DB: rgdb 
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+

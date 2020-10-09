@@ -1,0 +1,14 @@
+LOAD database
+    from '../api-rg-data-migration/rg.db'
+    into postgresql://root:rosgas2011@localhost:5432/rgdb
+    with include drop, 
+        create tables, 
+        drop indexes, 
+        create indexes, 
+        reset sequences,
+        prefetch rows = 10000
+        /* schema only */
+INCLUDING ONLY TABLE NAMES LIKE 'articles'
+;
+
+

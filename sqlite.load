@@ -1,0 +1,13 @@
+LOAD database
+    from '../api-rg-data-migration/rg.db'
+    into postgresql://root:rosgas2011@localhost:5432/rgdb
+    with include drop, 
+        create tables, 
+        drop indexes, 
+        create indexes, 
+        reset sequences 
+        /* schema only */
+INCLUDING ONLY TABLE NAMES LIKE 'rubrics', 'rubrics_objects'
+;
+
+
