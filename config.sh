@@ -1,2 +1,2 @@
-PGHOST=134.0.107.93
-CSVDIR=/Volumes/ssd/dumps-2020-10-09
+PGHOST=127.0.0.1
+CSVDIR=/home/vadimivlev/projects/cvs
